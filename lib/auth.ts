@@ -4,8 +4,8 @@ import { db } from "./db";
 import GoogleProvider from "next-auth/providers/google";
 
 function getGoogleCredentials() {
-  const clientId = process.env.GOOGLE_CLIENT_ID;
-  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  const clientId = process.env.GOOGLE_CLIENT_ID!;
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET!;
 
   if (!clientId || clientId.length === 0) {
     throw new Error("Missing GOOGLE_CLIENT_ID");
@@ -31,6 +31,11 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: getGoogleCredentials().clientId,
       clientSecret: getGoogleCredentials().clientSecret,
+      // to avoid google from timing issues when internet is slow
+      httpOptions: {
+        timeout: 10000,
+      },
+      checks: 'none'
     }),
   ],
   callbacks: {
