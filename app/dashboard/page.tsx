@@ -1,10 +1,14 @@
+import { authOptions } from '@/lib/auth'
+import { getServerSession } from 'next-auth'
 import React from 'react'
 
 type Props = {}
 
-const page = (props: Props) => {
+const page = async (props: Props) => {
+
+  const session = await getServerSession(authOptions)
   return (
-    <div>page</div>
+    <pre>{JSON.stringify(session)}</pre>
   )
 }
 
