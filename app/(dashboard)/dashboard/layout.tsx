@@ -9,7 +9,7 @@ import { FriendRequestsSidebarOption, SignOutButton } from "@/components";
 import { fetchRedis } from "@/helpers/redis";
 
 type Props = {
-  chilren: ReactNode;
+  children: ReactNode;
 };
 
 interface SidebarOption {
@@ -28,7 +28,7 @@ const sidebarOptions: SidebarOption[] = [
   },
 ];
 
-const Layout = async ({ chilren }: Props) => {
+const Layout = async ({ children }: Props) => {
   const session = await getServerSession(authOptions);
 
   if (!session) notFound();
@@ -42,7 +42,7 @@ const Layout = async ({ chilren }: Props) => {
 
   return (
     <div className="w-full flex h-screen">
-      <div className="flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
+      <div className="hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
         <Link href="/dashboard" className="flex h-16 shrink-0 items-center">
           <Icons.Logo className="h-8 w-auto text-indigo-600" />
         </Link>
@@ -73,14 +73,14 @@ const Layout = async ({ chilren }: Props) => {
                     </li>
                   );
                 })}
-              </ul>
-            </li>
 
-            <li>
-              <FriendRequestsSidebarOption
-                sessionId={session.user.id}
-                initialUnseenRequestCount={unseenRequestCount}
-              />
+                <li>
+                  <FriendRequestsSidebarOption
+                    sessionId={session.user.id}
+                    initialUnseenRequestCount={unseenRequestCount}
+                  />
+                </li>
+              </ul>
             </li>
 
             <li className="-mx-6 mt-auto flex items-center">
@@ -107,7 +107,7 @@ const Layout = async ({ chilren }: Props) => {
           </ul>
         </nav>
       </div>
-      {chilren}
+      {children}
     </div>
   );
 };
