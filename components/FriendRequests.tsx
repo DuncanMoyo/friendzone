@@ -17,7 +17,7 @@ const FriendRequests = ({ incomingFriendRequests, sessionId }: Props) => {
   const router = useRouter();
 
   const acceptFriend = async (senderId: string) => {
-    await axios.post("/api/requests/accept", { senderId });
+    await axios.post("/api/friends/accept", { id: senderId });
 
     setFriendRequests((prev) =>
       prev.filter((request) => request.senderId !== senderId)
@@ -26,7 +26,7 @@ const FriendRequests = ({ incomingFriendRequests, sessionId }: Props) => {
   };
 
   const denyFriend = async (senderId: string) => {
-    await axios.post("/api/requests/deny", { senderId });
+    await axios.post("/api/friends/deny", { id: senderId });
 
     setFriendRequests((prev) =>
       prev.filter((request) => request.senderId !== senderId)
@@ -44,6 +44,7 @@ const FriendRequests = ({ incomingFriendRequests, sessionId }: Props) => {
             <p className="font-medium text-lg">{request.senderEmail}</p>
             <button
               aria-label="accept friend"
+              onClick={() => acceptFriend(request.senderId)}
               className="w-8 h-8 bg-indigo-700 hover:bg-indigo-700 grid place-items-center rounded-full transition hover:shadow-md"
             >
               <Check className="font-semibold text-white w-3/4 h-3/4" />
@@ -51,6 +52,7 @@ const FriendRequests = ({ incomingFriendRequests, sessionId }: Props) => {
 
             <button
               aria-label="deny friend"
+              onClick={() => denyFriend(request.senderId)}
               className="w-8 h-8 bg-red-700 hover:bg-red-700 grid place-items-center rounded-full transition hover:shadow-md"
             >
               <X className="font-semibold text-white w-3/4 h-3/4" />
