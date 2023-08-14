@@ -4,7 +4,6 @@ import { db } from "@/lib/db";
 import { messageArrayValidator } from "@/lib/validators/message";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
-import { z } from "zod";
 
 type Props = {
   params: {
@@ -35,6 +34,8 @@ async function getChatMessages(chatId: string) {
 
 const page = async ({ params }: Props) => {
   const { chatId } = params;
+  // console.log("chatId here", chatId);
+
   const session = await getServerSession(authOptions);
   if (!session) notFound();
 
