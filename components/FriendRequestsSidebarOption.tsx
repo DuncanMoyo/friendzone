@@ -38,7 +38,7 @@ const FriendRequestsSidebarOption = ({
       );
       pusherClient.bind("incoming_friend_requests", friendRequestHandler);
     };
-  }, []);
+  }, [sessionId]);
 
   return (
     <Link
