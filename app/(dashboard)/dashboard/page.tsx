@@ -24,9 +24,14 @@ const page = async (props: Props) => {
         -1,
         -1
       )) as string[];
-      // console.log('lastMessage', lastMessage)
-
-      const lastMessage = JSON.parse(lastMessageRaw) as Message;
+  
+      let lastMessage;
+      if (lastMessageRaw === undefined) {
+        // handle the case where lastMessageRaw is undefined
+        lastMessage = { senderId: null, text: "No messages yet" };
+      } else {
+        lastMessage = JSON.parse(lastMessageRaw) as Message;
+      }
 
       return {
         ...friend,
