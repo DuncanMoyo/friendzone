@@ -7,22 +7,17 @@ import { Icon, Icons } from "@/components/Icons";
 import Image from "next/image";
 import {
   FriendRequestsSidebarOption,
+  MobileChatLayout,
   SidebarChatList,
   SignOutButton,
 } from "@/components";
 import { fetchRedis } from "@/helpers/redis";
 import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
+import { SidebarOption } from "@/types/typings";
 
 type Props = {
   children: ReactNode;
 };
-
-interface SidebarOption {
-  id: number;
-  name: string;
-  href: string;
-  Icon: Icon;
-}
 
 const sidebarOptions: SidebarOption[] = [
   {
@@ -49,6 +44,14 @@ const Layout = async ({ children }: Props) => {
 
   return (
     <div className="w-full flex h-screen">
+      <div className="md:hidden">
+        <MobileChatLayout
+          friends={friends}
+          session={session}
+          sidebarOptions={sidebarOptions}
+          unseenRequestCount={unseenRequestCount}
+        />
+      </div>
       <div className="hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
         <Link href="/dashboard" className="flex h-16 shrink-0 items-center">
           <Icons.Logo className="h-8 w-auto text-indigo-600" />

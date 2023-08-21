@@ -6,3 +6,4 @@ export {default as SidebarChatList} from './SidebarChatList';
 export {default as Messages} from './Messages';
 export {default as ChatInput} from './ChatInput';
 export {default as UnseenChatToast} from './UnseenChatToast';
+export {default as MobileChatLayout} from './MobileChatLayout';
